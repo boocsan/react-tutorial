@@ -65,6 +65,7 @@ type GameProps = {
   history: GamePropsHistory[];
   stepNumber: number;
   xIsNext: boolean;
+  isAsc: boolean;
 };
 
 class Game extends React.Component<{}, GameProps> {
@@ -83,6 +84,7 @@ class Game extends React.Component<{}, GameProps> {
       ],
       stepNumber: 0,
       xIsNext: true,
+      isAsc: false
     };
   }
 
@@ -108,6 +110,12 @@ class Game extends React.Component<{}, GameProps> {
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
     });
+  }
+
+  handleChangeOrderClick(): void {
+    this.setState({
+      isAsc: !this.state.isAsc
+    })
   }
 
   jumpTo(i: number): void {
@@ -147,6 +155,8 @@ class Game extends React.Component<{}, GameProps> {
       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }
 
+    const order = "ASC <--> DESC";
+
     return (
       <div className="game">
         <div className="game-board">
@@ -158,7 +168,8 @@ class Game extends React.Component<{}, GameProps> {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <p><button onClick={() => this.handleChangeOrderClick()}>{order}</button></p>
+          <ol>{this.state.isAsc ? moves : moves.reverse()}</ol>
         </div>
       </div>
     );
