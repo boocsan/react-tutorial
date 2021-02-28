@@ -122,11 +122,9 @@ class Game extends React.Component<{}, GameProps> {
     const current = histories[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
-
-
     const moves = histories.map((history: GamePropsHistory, move: number) => {
       const desc = move
-        ? `Go to move #${move} (x: ${history.position.x}, y: ${history.position.y})`
+        ? `Go to move #${move} (col: ${history.position.x}, row: ${history.position.y})`
         : "Go to game start";
       return (
         <li key={move}>
