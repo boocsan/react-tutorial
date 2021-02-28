@@ -24,6 +24,7 @@ class Board extends React.Component<BoardProps> {
   renderSquare(i: number) {
     return (
       <Square
+        key={i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
@@ -34,7 +35,7 @@ class Board extends React.Component<BoardProps> {
     return (
       <div>
         {[...Array(3)].map((_, i) => (
-          <div className="board-row">
+          <div className="board-row" key={i}>
             {[...Array(3)].map((_, j) => this.renderSquare(i + i * 2 + j))}
           </div>
         ))}
@@ -118,7 +119,12 @@ class Game extends React.Component<{}, GameProps> {
         : "Go to game start";
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button
+            onClick={() => this.jumpTo(move)}
+            className={this.state.stepNumber === move ? "bold" : ""}
+          >
+            {desc}
+          </button>
         </li>
       );
     });
